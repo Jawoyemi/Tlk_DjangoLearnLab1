@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+
+{% block title %}All Blog Posts{% endblock %}
+
+{% block content %}
+<div class="top-bar">
+    <a href="{% url 'post-create' %}" class="btn">+ New Post</a>
+</div>
+
+<h2>All Blog Posts</h2>
+
+<ul style="list-style-type: none; padding: 0;">
+    {% for post in posts %}
+        <li style="background-color: #f1f1f1; margin-bottom: 1rem; padding: 1rem; border-radius: 8px;">
+            <h3>{{ post.title }}</h3>
+            <p>{{ post.content|truncatewords:25 }}</p>
+            <small>Published on: {{ post.created_at|date:"F j, Y, g:i a" }}</small><br>
+            <a href="{% url 'post-detail' post.pk %}" class="btn" style="margin-top: 0.5rem;">Read More</a>
+        </li>
+    {% empty %}
+        <p>No posts available yet.</p>
+    {% endfor %}
+</ul>
+{% endblock %}
